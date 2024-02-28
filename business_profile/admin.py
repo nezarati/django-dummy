@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.http import HttpRequest
-
+from django.forms import ModelForm
 from .models import (
     BusinessProfile,
     City,
+    FullName,
     Insurance,
     Locality,
     NamedTelephone,
+    PostalAddress,
     Skill,
     WebLink,
     WorkDay,
@@ -14,6 +16,13 @@ from .models import (
 
 
 # Register your models here.
+class BusinessProfileForm(ModelForm):
+    class Meta:
+        model = BusinessProfile
+        fields = "__all__"  # ["gender", "person_name", ...]
+        # exclude = ["expires_at"]
+
+
 class NamedTelephoneInline(admin.TabularInline):
     model = NamedTelephone
     extra = 1
@@ -30,8 +39,11 @@ class WorkWeekInline(admin.TabularInline):
 
 
 class BusinessProfileAdmin(admin.ModelAdmin):
-    pass
+    form = BusinessProfileForm
+    # def get_exclude(self, request, obj=None):  # it works for flat fields
+        # return ["expires_at"]
     # fields = ["display_name", "get_types"]
+
     fieldsets = [
         (
             "Person",
@@ -61,6 +73,21 @@ class BusinessProfileAdmin(admin.ModelAdmin):
         ),
     ]
     inlines = [NamedTelephoneInline, WebLinkInline, WorkWeekInline]
+    def get_fieldsets(self, request: HttpRequest, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+
+        def remove_from_fieldsets(fieldsets, field):
+            for fieldset in fieldsets:
+                if field in fieldset[1]['fields']:
+                    fieldset[1]['fields'].remove(field)
+                    break
+        
+        if not request.user.is_superuser:
+            remove_from_fieldsets(fieldsets, 'expires_at')
+        if not request.user.is_staff:
+            remove_from_fieldsets(fieldsets, 'note')
+        return fieldsets
+
 
     list_display = ["display_name", "get_types", "expires_at", "image"]
 
@@ -116,6 +143,8 @@ admin.site.register(Skill)
 admin.site.register(City)
 admin.site.register(Locality)
 admin.site.register(Insurance)
+admin.site.register(PostalAddress)
+admin.site.register(FullName)
 # admin.site.register(WebLink)
 # admin.site.register(NamedTelephone)
 # admin.site.register(WorkDay)

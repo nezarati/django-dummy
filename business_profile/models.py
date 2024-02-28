@@ -36,11 +36,11 @@ class WeekDay(models.IntegerChoices):
 
 
 class FullName(models.Model):
-    prefix = models.CharField(max_length=50)
+    prefix = models.CharField(max_length=50, blank=True)
     given_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True)
     family_name = models.CharField(max_length=50)
-    suffix = models.CharField(max_length=50)
+    suffix = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return f"{self.prefix} {self.given_name} {self.middle_name} {self.family_name} {self.suffix}".strip()
@@ -79,10 +79,10 @@ class PostalAddress(models.Model):
     region = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     address_line = models.CharField(max_length=250)
-    postalCode = models.CharField(max_length=20)
+    postalCode = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
-        return f"{self.country}، {self.region}، {self.city}، {self.address_line}"
+        return f"{self.region}، {self.city}، {self.address_line}"
 
 
 class NamedTelephone(models.Model):

@@ -16,6 +16,6 @@ This app uses the following concepts and features:
 # Business Profile App
 This app uses the following features:
 - Django ORM
-- Customizing the Django Admin using custom fields, `form`, `forms.ModelForm`, `user.has_perm`, `has_*_permission`, `get_queryset`, and `save_model`
+- Customizing the Django Admin using custom fields, `form`, `forms.ModelForm`, `get_exclude`, `get_fieldsets`, `user.has_perm`, `has_*_permission`, `get_queryset`, and `save_model`
 - RESTful APIs
 - Django Debug Toolbar
