@@ -1,0 +1,27 @@
+{
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "django-dummy",
+			"database": "django-dummy",
+			"username": "postgres",
+			"password": ""
+		}
+	],
+	"python.analysis.autoImportCompletions": true,
+	"python.analysis.include": [
+		"C:/Users/Mahdi/Workspace/django-dummy/.venv/Lib/site-packages/**",
+		"C:/Users/Mahdi/.pyenv/pyenv-win/versions/3.8.10/Lib/**"
+	],
+	"python.analysis.userFileIndexingLimit": 50000,
+	"black-formatter.args": [
+		"--skip-string-normalization"
+	],
+	"editor.defaultFormatter": "ms-python.black-formatter",
+	"cSpell.words": [
+		"offramp"
+	]
+}
