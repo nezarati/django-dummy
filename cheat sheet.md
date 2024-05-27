@@ -52,3 +52,65 @@ def delete_model(self, request, obj):
     """
     obj.delete()
 ```
+
+## Install
+
+```shell
+# Install python version
+pyenv install 3.8.10
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+source ./.venv/bin/activate
+
+# Your python version stays `3.8.10`, but you need to update `pip` to help install `black` package.
+./.venv/bin/python -m pip install --upgrade pip
+
+# Do `git clone --branch develop` for its dependencies at the same level as `REPO` project and install them.
+cd ..
+
+git clone --branch develop ...
+pip install -e ./DEPENDENCY
+
+cd REPO
+
+# Install projects development requirements
+pip install -r REPO/requirements/dev.txt
+```
+
+### Importing database
+To access the container shell, run the following command:
+```shell
+docker exec -it NAME sh
+```
+
+To restore PostgreSql database:
+```shell
+gunzip -c < dummy.dump.gz | psql -U postgres -h localhost dummy
+```
+
+### On Windows
+
+#### Execution Policy Settings for PowerShell Script
+First of all, you need to change execution policy.
+```shell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+```
+
+#### `pyenv-win`
+This is `pyenv` for Windows. [Here](https://github.com/pyenv-win/pyenv-win) is its repository:
+
+Use the following command to activate virtual environment:
+```shell
+.\.venv\Scripts\activate
+```
+
+#### Updating `pip`
+```shell
+.\.venv\scripts\python.exe -m pip install --upgrade pip
+```
+
+#### `pysha3` problem
+For building `pysha3` on Windows, you need to install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools).
